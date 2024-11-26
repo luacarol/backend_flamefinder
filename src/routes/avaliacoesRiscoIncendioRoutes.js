@@ -23,7 +23,7 @@ const routes = (app) => {
     // Define uma rota GET para criar uma avaliação de risco de incêndio
     app.post("/avaliacao-risco-incendio", postarAvaliacaoRiscoIncendio);
 
-    app.post("/avaliacoao-risco-incendio/carregar-imagem", upload.single("imagem"), carregarImagem);
+    app.post("/avaliacao-risco-incendio/carregar-imagem", upload.single("imagem"), carregarImagem);
 
     app.put("/avaliacao-risco-incendio/:id", atualizarNovaAvaliacaoRiscoIncendio)
 }

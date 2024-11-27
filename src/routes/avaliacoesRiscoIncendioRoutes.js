@@ -1,6 +1,12 @@
 import express from "express";
 import multer from "multer";
 import { listarAvaliacoesRiscoIncendio, postarAvaliacaoRiscoIncendio, carregarImagem, atualizarNovaAvaliacaoRiscoIncendio } from '../controllers/avaliacoesRiscoIncendioController.js';
+import cors from "cors";
+
+const corsOptions = {
+    origin: "http://localhost:8000", 
+    optionsSuccessStatus: 200
+}
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -16,6 +22,8 @@ const upload = multer({ dest: "./uploads" , storage})
 const routes = (app) => {
     // Habilita o parsing de dados JSON nas requisições HTTP
     app.use(express.json());
+
+    app.use(cors(corsOptions));
 
     // Define uma rota GET para obter todas as avaliações de risco de incêndio
     app.get("/avaliacoes-risco-incendio", listarAvaliacoesRiscoIncendio);

@@ -41,7 +41,6 @@ export async function gerarDescricaoComGemini(imageBuffer, mimeType) {
 export async function gerarGrauRiscoIncendioComGemini(imageBuffer, mimeType) {
   const prompt =
     `Com base na imagem, avalie o grau de risco de incêndio utilizando os seguintes critérios:
-
   Para cores vivas, como vermelho, laranja e amarelo, considere um risco Alto ou Médio.
   Para tons predominantemente cinza ou preto como se vê em fumaças, considere um risco Baixo.
   Responda com apenas uma palavra: Alto, Médio ou Baixo`;
@@ -58,7 +57,11 @@ export async function gerarGrauRiscoIncendioComGemini(imageBuffer, mimeType) {
       },
     };
     const res = await model.generateContent([prompt, image]);
-    return res.response.text() || "Não foi possível determinar o grau de risco.";
+
+    // Obtém o texto, removendo espaços em branco e quebras de linha
+    const grauRisco = (res.response.text() || "Não foi possível determinar o grau de risco.").trim();
+
+    return grauRisco;
   } catch (erro) {
     console.error("Erro ao obter grau de risco:", erro.message, erro);
     throw new Error("Erro ao obter o grau de risco do Gemini.");

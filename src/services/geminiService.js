@@ -40,7 +40,11 @@ export async function gerarDescricaoComGemini(imageBuffer, mimeType) {
 
 export async function gerarGrauRiscoIncendioComGemini(imageBuffer, mimeType) {
   const prompt =
-    "Dado essa imagem, qual o grau de risco de incêndio, defina em uma palavra das seguintes opções: alto, médio ou baixo.";
+    `Com base na imagem, avalie o grau de risco de incêndio utilizando os seguintes critérios:
+
+  Para cores vivas, como vermelho, laranja e amarelo, considere um risco Alto ou Médio.
+  Para tons predominantemente cinza ou preto como se vê em fumaças, considere um risco Baixo.
+  Responda com apenas uma palavra: Alto, Médio ou Baixo`;
 
   if (!Buffer.isBuffer(imageBuffer)) {
     throw new Error("O imageBuffer não é válido.");
